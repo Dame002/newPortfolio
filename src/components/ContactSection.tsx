@@ -181,7 +181,7 @@ export function ContactSection() {
                       value={formState.name}
                       onChange={handleChange}
                       required
-                      placeholder="John Doe"
+                      placeholder="Votre nom"
                       className="w-full px-4 py-3 bg-gray-800/30 border border-gray-700 rounded-lg focus:border-blue-500 outline-none transition-colors font-mono text-sm text-white"
                     />
                   </div>
@@ -201,7 +201,7 @@ export function ContactSection() {
                       value={formState.email}
                       onChange={handleChange}
                       required
-                      placeholder="john@example.com"
+                      placeholder="nom@example.com"
                       className="w-full px-4 py-3 bg-gray-800/30 border border-gray-700 rounded-lg focus:border-blue-500 outline-none transition-colors font-mono text-sm text-white"
                     />
                   </div>
