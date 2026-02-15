@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { Code2, Terminal, Sparkles, Cpu } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { Code2, Terminal, Sparkles, Cpu, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Données pour portfolio.ts
 const portfolioCode = [
@@ -94,6 +94,9 @@ export function HeroSection() {
   const [visibleLines, setVisibleLines] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
   const [currentContent, setCurrentContent] = useState(portfolioCode);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+  const tabsRef = useRef<HTMLDivElement>(null);
 
   const tabs = ['portfolio.ts', 'skills.json', 'config.ts'];
 
@@ -110,6 +113,41 @@ export function HeroSection() {
     }, 400);
     return () => clearInterval(timer);
   }, [currentContent]);
+
+  // Gérer le scroll des onglets
+  const handleScroll = () => {
+    if (tabsRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = tabsRef.current;
+      setShowLeftArrow(scrollLeft > 0);
+      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  const scrollTabs = (direction: 'left' | 'right') => {
+    if (tabsRef.current) {
+      const scrollAmount = 200;
+      const newScrollLeft = direction === 'left' 
+        ? tabsRef.current.scrollLeft - scrollAmount 
+        : tabsRef.current.scrollLeft + scrollAmount;
+      
+      tabsRef.current.scrollTo({
+        left: newScrollLeft,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  useEffect(() => {
+    const tabsElement = tabsRef.current;
+    if (tabsElement) {
+      tabsElement.addEventListener('scroll', handleScroll);
+      handleScroll(); // Initial check
+      
+      // Vérifier après un petit délai pour s'assurer que le contenu est chargé
+      setTimeout(handleScroll, 100);
+    }
+    return () => tabsElement?.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -291,31 +329,58 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* Editor tabs with improved design - DYNAMIQUES */}
-            <div className="flex border-b border-border bg-secondary/30">
-              {tabs.map((tab, index) => (
-                <motion.button
-                  key={tab}
-                  onClick={() => setActiveTab(index)}
-                  className={`flex items-center gap-2 px-4 py-2 text-xs font-mono border-r border-border transition-all ${
-                    index === activeTab 
-                      ? 'bg-secondary/50 text-foreground border-b-2 border-primary' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary/20'
-                  }`}
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.98 }}
+            {/* Editor tabs with improved design - SCROLLABLES SUR MOBILE */}
+            <div className="relative">
+              {/* Flèche gauche */}
+              {showLeftArrow && (
+                <button
+                  onClick={() => scrollTabs('left')}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-secondary/80 backdrop-blur-sm rounded-r-lg p-1 md:hidden"
                 >
-                  <span className={index === activeTab ? 'syntax-string' : 'syntax-comment'}>📄</span>
-                  <span className={index === activeTab ? 'syntax-variable' : ''}>{tab}</span>
-                  {index === activeTab && (
-                    <motion.span 
-                      className="w-1 h-1 rounded-full bg-primary"
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 1, repeat: Infinity }}
-                    />
-                  )}
-                </motion.button>
-              ))}
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+              )}
+
+              {/* Flèche droite */}
+              {showRightArrow && (
+                <button
+                  onClick={() => scrollTabs('right')}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-secondary/80 backdrop-blur-sm rounded-l-lg p-1 md:hidden"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              )}
+
+              {/* Conteneur scrollable des onglets */}
+              <div
+                ref={tabsRef}
+                className="flex border-b border-border bg-secondary/30 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {tabs.map((tab, index) => (
+                  <motion.button
+                    key={tab}
+                    onClick={() => setActiveTab(index)}
+                    className={`flex items-center gap-2 px-4 py-2 text-xs font-mono border-r border-border transition-all snap-start ${
+                      index === activeTab 
+                        ? 'bg-secondary/50 text-foreground border-b-2 border-primary' 
+                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/20'
+                    }`}
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className={index === activeTab ? 'syntax-string' : 'syntax-comment'}>📄</span>
+                    <span className={index === activeTab ? 'syntax-variable' : ''}>{tab}</span>
+                    {index === activeTab && (
+                      <motion.span 
+                        className="w-1 h-1 rounded-full bg-primary"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                      />
+                    )}
+                  </motion.button>
+                ))}
+              </div>
             </div>
 
             {/* Code content with line numbers - DYNAMIQUE */}
@@ -376,6 +441,17 @@ export function HeroSection() {
               </div>
             </div>
           </div>
+        </motion.div>
+
+        {/* Indication de scroll pour mobile */}
+        <motion.div 
+          className="md:hidden text-center mt-4 text-[10px] text-muted-foreground animate-pulse"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          <span className="syntax-comment">{'// '}</span>
+          <span className="syntax-string">Glissez pour voir plus d'onglets ← →</span>
         </motion.div>
 
         {/* Bottom indicator */}
