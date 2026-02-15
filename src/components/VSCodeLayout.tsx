@@ -59,7 +59,7 @@ export function StatusBar() {
       <div className="flex items-center gap-4">
         <span>Ln 42, Col 18</span>
         <span>Spaces: 2</span>
-        <span>© 2026 Dev FullStack. Fait par Dame SECK</span>
+        <span>© 2026 Tous droit réservés.</span>
       </div>
     </motion.footer>
   );
