@@ -38,6 +38,11 @@ const cvData = {
   },
   education: [
     {
+      period: "2026",
+      degree: "Licence en ingénierie des applications web mobile & IA",
+      school: "",
+    },
+    {
       period: "2023-2025",
       degree: "Technicien Spécialisé en Développement Informatique",
       school: "ISTA",
@@ -45,14 +50,7 @@ const cvData = {
     {
       period: "2022-2023",
       degree: "Baccalauréat",
-    },
-    {
-      period: "2019-2020",
-      degree: "Brevet de fin d'études moyennes",
-    },
-    {
-      period: "2015-2016",
-      degree: "Certificat de fin d'études élémentaires",
+      school: "",
     }
   ],
   experience: [
