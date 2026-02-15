@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { Code2, User, Layers, FolderGit2, Mail } from "lucide-react";
 
 const navItems = [
-  { icon: Code2, label: 'Hero', href: '#top' },
-  { icon: User, label: 'About', href: '#about' },
-  { icon: Layers, label: 'Skills', href: '#skills' },
-  { icon: FolderGit2, label: 'Projects', href: '#projects' },
-  { icon: Mail, label: 'Contact', href: '#contact' },
+  { icon: Code2, label: 'Accueil', href: '#top', color: 'syntax-function' },     // text-blue-400
+  { icon: User, label: 'À propos', href: '#about', color: 'syntax-variable' },    // text-purple-400
+  { icon: Layers, label: 'Compétences', href: '#skills', color: 'syntax-string' }, // text-green-400
+  { icon: FolderGit2, label: 'Projets', href: '#projects', color: 'syntax-keyword' }, // text-orange-400
+  { icon: Mail, label: 'Contact', href: '#contact', color: 'syntax-type' },       // text-yellow-400
 ];
 
 export function ActivityBar() {
@@ -59,7 +59,7 @@ export function StatusBar() {
       <div className="flex items-center gap-4">
         <span>Ln 42, Col 18</span>
         <span>Spaces: 2</span>
-        <span>© 2024 Dev FullStack</span>
+        <span>© 2026 Dev FullStack. Fait par Dame SECK</span>
       </div>
     </motion.footer>
   );
