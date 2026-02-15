@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 20% 15%;
+    --foreground: 0 0% 83%;
+
+    --card: 240 4% 16%;
+    --card-foreground: 0 0% 83%;
+
+    --popover: 240 4% 16%;
+    --popover-foreground: 0 0% 83%;
+
+    --primary: 200 100% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 4% 20%;
+    --secondary-foreground: 0 0% 83%;
+
+    --muted: 240 4% 20%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 170 50% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 4% 22%;
+    --input: 240 4% 22%;
+    --ring: 200 100% 40%;
+
+    --radius: 0.375rem;
+
+    /* VS Code syntax colors */
+    --syntax-keyword: 300 30% 68%;
+    --syntax-string: 29 50% 65%;
+    --syntax-function: 210 55% 65%;
+    --syntax-variable: 170 50% 72%;
+    --syntax-number: 100 40% 60%;
+    --syntax-comment: 0 0% 45%;
+    --syntax-type: 40 60% 72%;
+    --syntax-operator: 0 0% 83%;
+
+    /* Hologram effects */
+    --holo-glow: 180 80% 60%;
+    --holo-glow-2: 200 100% 50%;
+    --holo-scanline: 180 60% 70%;
+
+    /* Activity bar */
+    --activity-bar: 240 15% 12%;
+    --status-bar: 200 100% 33%;
+    --tab-active: 240 20% 15%;
+    --tab-inactive: 240 10% 18%;
+    --line-number: 0 0% 35%;
+
+    --sidebar-background: 240 10% 13%;
+    --sidebar-foreground: 0 0% 65%;
+    --sidebar-primary: 200 100% 40%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 4% 20%;
+    --sidebar-accent-foreground: 0 0% 83%;
+    --sidebar-border: 240 4% 22%;
+    --sidebar-ring: 200 100% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  ::selection {
+    background: hsl(200 100% 40% / 0.4);
+  }
+}
+
+@layer components {
+  .holo-text {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--holo-glow)),
+      hsl(var(--primary)),
+      hsl(var(--holo-glow-2)),
+      hsl(var(--accent))
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: holo-shift 6s ease-in-out infinite;
+  }
+
+  .holo-border {
+    border: 1px solid transparent;
+    background-image: linear-gradient(hsl(var(--card)), hsl(var(--card))),
+      linear-gradient(135deg, hsl(var(--holo-glow) / 0.5), hsl(var(--primary) / 0.5), hsl(var(--holo-glow-2) / 0.5));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .holo-glow {
+    box-shadow:
+      0 0 15px hsl(var(--holo-glow) / 0.15),
+      0 0 30px hsl(var(--primary) / 0.1),
+      inset 0 0 15px hsl(var(--holo-glow) / 0.05);
+  }
+
+  .code-line {
+    @apply flex items-center gap-4 py-0.5 px-4 text-sm leading-relaxed;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .line-number {
+    color: hsl(var(--line-number));
+    min-width: 2rem;
+    text-align: right;
+    user-select: none;
+  }
+
+  .syntax-keyword { color: hsl(var(--syntax-keyword)); }
+  .syntax-string { color: hsl(var(--syntax-string)); }
+  .syntax-function { color: hsl(var(--syntax-function)); }
+  .syntax-variable { color: hsl(var(--syntax-variable)); }
+  .syntax-number { color: hsl(var(--syntax-number)); }
+  .syntax-comment { color: hsl(var(--syntax-comment)); font-style: italic; }
+  .syntax-type { color: hsl(var(--syntax-type)); }
+  .syntax-operator { color: hsl(var(--syntax-operator)); }
+
+  .scanline {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanline::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(var(--holo-scanline) / 0.3), transparent);
+    animation: scanline-move 4s linear infinite;
+  }
+
+  .activity-bar-icon {
+    @apply flex items-center justify-center w-12 h-12 text-muted-foreground transition-colors duration-200;
+  }
+
+  .activity-bar-icon:hover,
+  .activity-bar-icon.active {
+    @apply text-foreground;
+    border-left: 2px solid hsl(var(--primary));
+  }
+
+  .status-bar {
+    background: hsl(var(--status-bar));
+    @apply text-xs text-primary-foreground px-4 py-1 flex items-center justify-between;
+  }
+
+  .editor-tab {
+    @apply px-4 py-2 text-xs flex items-center gap-2 border-r border-border cursor-pointer transition-colors;
+    background: hsl(var(--tab-inactive));
+    color: hsl(var(--muted-foreground));
+  }
+
+  .editor-tab.active {
+    background: hsl(var(--tab-active));
+    color: hsl(var(--foreground));
+    border-top: 2px solid hsl(var(--primary));
+  }
+}
+
+@keyframes holo-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes scanline-move {
+  0% { top: -2px; }
+  100% { top: 100%; }
+}
+
+@keyframes float-code {
+  0%, 100% { transform: translateY(0) rotateX(0deg); opacity: 0.6; }
+  50% { transform: translateY(-20px) rotateX(5deg); opacity: 1; }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: hsl(var(--foreground)); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; filter: blur(20px); }
+  50% { opacity: 0.8; filter: blur(30px); }
+}
