@@ -5,16 +5,16 @@ import { ExternalLink, Github, X, Code2, Sparkles, Cpu, Terminal, FolderOpen } f
 const projects = [
   {
     title: "Coin des Vip",
-    description: "Fondé en 2017 par une équipe dynamique de jeunes entrepreneurs passionnés par la mode. Découvrez notre sélection exquise de vêtements pour hommes et femmes, allant des robes élégantes aux vestes tendance, en passant par les tops, pantalons et autres pièces fashion.",
+    description: "Coin des VIPs est une plateforme exclusive fondée pour rassembler les passionnés de mode et les adeptes de tendances haut de gamme. Elle propose une sélection raffinée de vêtements et accessoires pour hommes et femmes, allant des robes élégantes aux vestes modernes, en passant par les tops et pantalons les plus en vogue. L’objectif est d’offrir une expérience shopping unique, mêlant qualité, style contemporain et exclusivité, pour une clientèle exigeante à la recherche de pièces qui se démarquent.",
     tech: ["HTML", "CSS", "JavaScript", "Laravel"],
-    filename: "coin-des-vip.php",
+    filename: "coin-des-vip.blade.php",
     github: "https://github.com/Dame002/projetFin",
     demo: "https://coindesvips.netlify.app/",
   },
   {
     title: "Daarul Alam",
     description: "Fondé en 2024, Daarul Alam est une initiative pionnière d'enseignement islamique en ligne, offrant un accès facile et authentique aux sciences religieuses pour les musulmans francophones à travers le monde.",
-    tech: ["HTML", "CSS", "SCSS", "JavaScript", "Blade", "PHP"],
+    tech: ["HTML", "CSS", "SCSS", "JavaScript", "Laravel"],
     filename: "daarul-alam.blade.php",
     github: "https://github.com/Dame002/lms-d.alam",
     demo: "#",
@@ -22,7 +22,7 @@ const projects = [
   {
     title: "MiniShop UI",
     description: "MiniShop UI est un mini-projet Flutter centré sur la conception d'une interface moderne de boutique. L'application propose deux écrans — Produits et Commandes — permettant d'afficher une grille de produits avec images, prix et actions, ainsi qu'une vue panier simulée. L'objectif principal est de maîtriser la mise en page, la navigation et le design (cartes, couleurs, icônes) plutôt que la logique métier.",
-    tech: ["C++", "Dart", "CMake", "Swift", "C", "HTML", "Other"],
+    tech: ["C++", "Dart", "CMake", "Swift", "C", "HTML"],
     filename: "minishop-ui.dart",
     github: "https://github.com/Dame002/miniProjetFlutter",
     demo: "#",

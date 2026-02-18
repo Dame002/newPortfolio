@@ -276,7 +276,7 @@ export function HeroSection() {
             transition={{ delay: 0.5 }}
           >
             <span className="syntax-comment">{'/* '}</span>
-            Architecte de solutions web modernes
+            Développeur full-stack web, mobile & IA
             <span className="syntax-comment">{' */'}</span>
           </motion.p>
         </motion.div>
